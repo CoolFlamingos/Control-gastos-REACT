@@ -27,7 +27,7 @@ function App() {
     }
   }, [filtro])
 
-  /* 
+  
     useEffect(() => {
       const obtenerLS = (() => {
         const gastosLS = JSON.parse(localStorage.getItem('gastos')) ?? []
@@ -39,7 +39,7 @@ function App() {
     useEffect(() => {
       localStorage.setItem('gastos', JSON.stringify(gastos))
     }, [gastos])
-  */
+  
 
   const eliminarGasto = id => {
     const gastosAct = gastos.filter(gasto => gasto.id !== id)
