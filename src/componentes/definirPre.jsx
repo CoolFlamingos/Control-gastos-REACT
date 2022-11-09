@@ -1,46 +1,52 @@
-import{useState} from 'react'
+import { useState } from 'react'
 import Error from './error';
 
 
-function Definir({presupuesto,setPresupuesto,setPresupuestos}) {
+function Definir({ presupuesto, setPresupuesto, setIsValid }) {
 
     //preguntarPresupuesto()
 
     const [error, setError] = useState('');
-    
-const handlePresupuesto = (e) => {
-    e.preventDefault();
-    if (!presupuesto||presupuesto<=0){
-        setError('No es presupuesot valido')
-        return
-    }
-    setError('')
-    setPresupuestos(true)
 
- }
+    const handlePresupuesto = (e) => {
+        e.preventDefault();
+        if (!presupuesto || presupuesto <= 0) {
+            setError('No es presupuesto valido')
+            return
+        }
+        setError('')
+        setIsValid(true)
+
+    }
 
     return (
 
-        <div className="md:w-1/2 mx-4 lq:w-1/4 text-center">
+        <div style={{
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%)'
+        }}
+            className="md:w-1/2 mx-4 lq:w-1/4 text-center">
             <form className="bg-white-100 py-10 px-8 shadow-md rounded-lg" on onSubmit={handlePresupuesto}
-           
-          >
-                 <label> Definir Presupuesto </label>
+
+            >
+                <label> Definir Presupuesto </label>
                 <div>
-                    <input className=" p-2 rounded-md width-full mt-2 bg-gray-200 "
+                    <input className=" p-2 rounded-md width-full mt-2 bg-gray-200 margin: auto "
                         type="number"
                         value={presupuesto}
-                        onChange={(e)=>setPresupuesto(Number(e.target.value))}
+                        onChange={(e) => setPresupuesto(Number(e.target.value))}
                     />
                 </div>
-                <br/>
+                <br />
                 <div>
                     <input className="p-2 rounded-md width-full mt-2 bg-blue-500 text-gray-100 font-bold hover:bg-blue-700 uppercase cursor-pointer transition-colors"
                         type="submit"
-                        value={'Añadir'}/>
-                        
+                        value={'Añadir'} />
 
-{error && <Error tipo="error">{error}</Error> }
+
+                    {error && <Error tipo="error">{error}</Error>}
 
                 </div>
             </form>

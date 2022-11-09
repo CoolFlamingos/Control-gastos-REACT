@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Error from './error';
 
 
-function Formulario({gastos,setGastos,gasto,setGasto}) {
+function Formulario({ gastos, setGastos, gasto, setGasto }) {
 
     const [nombre, setNombre] = useState('');
     const [cantidad, setCantidad] = useState('');
@@ -10,11 +10,22 @@ function Formulario({gastos,setGastos,gasto,setGasto}) {
     const [error, setError] = useState(false)
 
 
+    useEffect(() => {
+        if (Object.keys(gasto).length > 0) {
+            setNombre(gasto.nombre)
+            setCantidad(gasto.cantidad)
+            setCategoria(gasto.email)
+        }
+    }, [gasto])
+
+
     const generarId = () => {
         const random = Math.random().toString(36)
         const fecha = Date.now().toString(36)
         return random + fecha
     }
+
+    
 
 
     const validarFormulario = (e) => {
@@ -25,19 +36,19 @@ function Formulario({gastos,setGastos,gasto,setGasto}) {
             return
         };
         setError(false)
-        const objetoGasto={nombre,cantidad,categoria}
+        const objetoGasto = { nombre, cantidad, categoria }
 
-        
+
         if (gasto.id) {
             objetoGasto.id = gasto.id
-            const gastosAct = gastos.map(gastoState => gastoState.id===gasto.id ? objetoGasto:gastoState)
+            const gastosAct = gastos.map(gastoState => gastoState.id === gasto.id ? objetoGasto : gastoState)
             setGastos(gastosAct)
             setGasto({})
 
         } else {
             objetoGasto.id = generarId()
             setGastos([...gastos, objetoGasto])
-            
+
         }
 
         setNombre('')
@@ -76,7 +87,7 @@ function Formulario({gastos,setGastos,gasto,setGasto}) {
                         type="number"
                         placeholder="Añade la cantidad del gasto: ej. 300"
                         value={cantidad}
-                        onChange={(e) => setCantidad(e.target.value)}
+                        onChange={(e) => setCantidad(Number(e.target.value))}
                     />
                 </div>
                 <br />
@@ -87,7 +98,7 @@ function Formulario({gastos,setGastos,gasto,setGasto}) {
                     </label>
                     <br />
                     <select name="Seleccione" id="categoria" className='w-60 text-center p-3 rounded-lg ' value={categoria} onChange={(e) => setCategoria(e.target.value)}>
-                        <option value="">--Seleccione--</option>
+                        <option value=""disabled="disabled">--Seleccione--</option>
                         <option value="Ahorro">Ahorro</option>
                         <option value="Comida">Comida</option>
                         <option value="Casa">Casa</option>
@@ -103,7 +114,7 @@ function Formulario({gastos,setGastos,gasto,setGasto}) {
                 <div>
                     <input className="p-2 rounded-md width-full mt-2 bg-blue-600 text-white text-bold hover:bg-blue-800 uppercase cursor-pointer transition-colors"
                         type="submit"
-                        value={gasto.id?'editar gasto':'Agregar gasto'} />
+                        value={gasto.id ? 'editar gasto' : 'Agregar gasto'} />
                 </div>
             </form>
             <br />

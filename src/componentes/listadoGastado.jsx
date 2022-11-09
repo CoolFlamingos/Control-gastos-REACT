@@ -7,7 +7,9 @@ function ListadoGastado ({ gastos,setGasto,eliminarGasto,filtro, gastosFiltrados
     <div>
        {filtro ? (
           <>
-            <h2>{gastosFiltrados.length ? 'Gastos':'No hay gastos en esta categoría'}</h2>
+          <div>
+            <h2>{gastosFiltrados.length ? '':''}</h2>
+            </div>
             {
               gastosFiltrados.map(gasto => (
                 <Lista
@@ -35,6 +37,7 @@ function ListadoGastado ({ gastos,setGasto,eliminarGasto,filtro, gastosFiltrados
         )
 
        }
+
     </div>
   )
 }
